@@ -35,7 +35,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         def containerID = sh(
-                            script: "docker ps -q ---filter 'publish=3000'",
+                            script: "docker ps -q --filter 'publish=3000'",
                             returnStdout: true
                         ).trim()
                         
