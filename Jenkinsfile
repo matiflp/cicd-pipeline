@@ -35,7 +35,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         def containerID = sh(
-                            script: "docker ps -q --filter ancestor=nodemain:v1.0",
+                            script: "docker ps -q --filter 'publish=3000'",
                             returnStdout: true
                         ).trim()
                         
@@ -49,7 +49,7 @@ pipeline {
                         sh "docker run -d --expose 3000 -p 3000:3000 nodemain:v1.0"                        
                     } else {
                         def containerID = sh(
-                            script: "docker ps -q --filter ancestor=nodedev:v1.0",
+                            script: "docker ps -q --filter 'publish=3001'",
                             returnStdout: true
                         ).trim()
                         
