@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_CREDENTIALS_ID = 'dockerhub_credentials'
+    tools {
+        nodejs 'NodeJS 7.8.0' // El nombre que configuraste en Global Tool Configuration
     }
     stages {
         stage('Checkout') {
