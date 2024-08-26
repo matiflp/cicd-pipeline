@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         nodejs 'NodeJS 7.8.0'
+        trivy '0.18.3'
     }
     stages {
         stage('Checkout') {
