@@ -27,7 +27,7 @@ pipeline {
 
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
                             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
-                            sh 'docker tag nodemain:v1.0  matilp95/nodemain:v1.0 .'
+                            sh 'docker tag nodemain:v1.0  matilp95/nodemain:v1.0'
                             sh "docker push matilp95/nodemain:v1.0"
                         }
 
@@ -37,7 +37,7 @@ pipeline {
 
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
                             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
-                            sh 'docker tag nodedev:v1.0  matilp95/nodedev:v1.0 .'
+                            sh 'docker tag nodedev:v1.0  matilp95/nodedev:v1.0'
                             sh "docker push matilp95/nodedev:v1.0"
                         }
                     }
