@@ -34,10 +34,10 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
-                        def vulnerabilities = sh(script: "trivy image --exit-code 0 --severity HIGH,MEDIUM,LOW --no-progress nodemain:v1.0", returnStdout: true).trim()
+                        def vulnerabilities = sh(script: "/usr/local/bin/trivy image --exit-code 0 --severity HIGH,MEDIUM,LOW --no-progress nodemain:v1.0", returnStdout: true).trim()
                         echo "Vulnerability Report for nodemain:v1.0:\n${vulnerabilities}"
                     } else {
-                        def vulnerabilities = sh(script: "trivy image --exit-code 0 --severity HIGH,MEDIUM,LOW --no-progress nodedev:v1.0", returnStdout: true).trim()
+                        def vulnerabilities = sh(script: "/usr/local/bin/trivy image --exit-code 0 --severity HIGH,MEDIUM,LOW --no-progress nodedev:v1.0", returnStdout: true).trim()
                         echo "Vulnerability Report for nodedev:v1.0:\n${vulnerabilities}"
                     }
                 }
@@ -64,7 +64,7 @@ pipeline {
         }
         stage('Lint Dockerfile with Hadolint') {
             steps {
-                sh 'hadolint Dockerfile'
+                sh '/usr/local/bin/hadolint Dockerfile'
             }
         }
         stage('Trigger Deployment') {
