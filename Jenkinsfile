@@ -1,3 +1,4 @@
+@Library('PushDockerImageSharedLibrary') _
 pipeline {
     agent any
     tools {
@@ -43,21 +44,13 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+         stage('Push Docker Image') {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-                            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
-                            sh 'docker tag nodemain:v1.0 matilp95/nodemain:v1.0'
-                            sh "docker push matilp95/nodemain:v1.0"
-                        }
+                        pushDockerImage('nodemain', 'v1.0', 'docker-hub-credentials-id')
                     } else {
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-                            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin"
-                            sh 'docker tag nodedev:v1.0 matilp95/nodedev:v1.0'
-                            sh "docker push matilp95/nodedev:v1.0"
-                        }
+                        pushDockerImage('nodedev', 'v1.0', 'docker-hub-credentials-id')
                     }
                 }
             }
